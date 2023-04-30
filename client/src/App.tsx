@@ -23,9 +23,23 @@ async function getCostPrediction(time: number, capacity: number) {
 
 const App: Component = () => {
   const [cost, setCost] = createSignal("");
-  getCostPrediction(3600, 100).then((result) => {
+  const [time, setTime] = createSignal(3600);
+  const [capacity, setCapacity] = createSignal(100);
+  getCostPrediction(time, capacity).then((result) => {
     setCost(result);
   });
+  function handleTimeChange(e: any) {
+    setTime(e.target.value);
+    getCostPrediction(time, capacity).then((result) => {
+      setCost(result);
+    });
+  }
+  function handleCapacityChange(e: any) {
+    setCapacity(e.target.value);
+    getCostPrediction(time, capacity).then((result) => {
+      setCost(result);
+    });
+  }
   return (
     <div class={styles.App}>
       <header class={styles.header}>
@@ -42,6 +56,8 @@ const App: Component = () => {
           Learn Solid
         </a>
         <div>{cost}</div>
+        <input type="number" id="time" name="time" onChange={handleTimeChange} />
+        <input type="number" id="capacity" name="capacity" onChange={handleCapacityChange} />
       </header>
     </div>
   );
