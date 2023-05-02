@@ -5,11 +5,12 @@ const Cost: Component<{
   initialTime: number;
   initialCapacity: number;
 }> = (props) => {
-  const {
-    timeSignal: { time, setTime },
-    capacitySignal: { capacity, setCapacity },
-    costResource: { cost },
-  } = createCostPrediction(props.initialTime, props.initialCapacity);
+  // const {
+  //   timeSignal: { time, setTime },
+  //   capacitySignal: { capacity, setCapacity },
+  //   costResource: { cost },
+  // } = createCostPrediction(props.initialTime, props.initialCapacity);
+  return <></>;
   return (
     <div class="">
       Time (segs):

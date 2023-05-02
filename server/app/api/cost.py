@@ -36,7 +36,7 @@ def predict_cost(time: int, capacity: int):
     return {"cost": model.predict(features.values.reshape(1, -1))[0]}
 
 
-@router.post("/")
+@router.post("/file")
 def predict_cost_by_file(file: CostCSVFile):
     """Predict cost given time and capacity."""
     df_time_cap = pd.DataFrame(file.dict())
