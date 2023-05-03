@@ -6,7 +6,8 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "hot-build": "vite build --watch --emptyOutDir"
   },
   "license": "MIT",
   "devDependencies": {

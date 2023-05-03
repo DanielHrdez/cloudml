@@ -8,10 +8,10 @@ const App: Component = () => {
   return (
     <div class="flex flex-col sm:flex-row h-screen">
       <Servive title="Cost Prediction">
-        <Cost initialTime={100} initialCapacity={10} />
+        <Cost />
       </Servive>
       <Servive title="Error Prediction">
-        <Error initialTime={100} initialCapacity={10} />
+        <Error />
       </Servive>
     </div>
   );

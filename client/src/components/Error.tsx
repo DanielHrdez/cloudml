@@ -1,38 +1,45 @@
 import { Component } from "solid-js";
-import { createCostPrediction } from "../hooks/createCostPrediction";
 
-const Cost: Component<{
-  initialTime: number;
-  initialCapacity: number;
-}> = (props) => {
-  // const {
-  //   timeSignal: { time, setTime },
-  //   capacitySignal: { capacity, setCapacity },
-  //   costResource: { cost },
-  // } = createCostPrediction(props.initialTime, props.initialCapacity);
-  return <></>;
+const Error: Component = () => {
   return (
-    <div class="">
-      Time (segs):
-      <input
-        type="number"
-        onChange={(e: any) => setTime(e.target.value)}
-        value={time()}
-        min="0"
-      />
-      Capacity (workers):
-      <input
-        type="number"
-        onChange={(e: any) => setCapacity(e.target.value)}
-        value={capacity()}
-        min="1"
-      />
-      <h1>
-        AWS process will cost: <br />
-        {Math.round(cost() * 100) / 100}$
-      </h1>
+    <div class="h-full flex flex-col justify-evenly">
+      <div class="w-full">
+        <div class="flex justify-evenly">
+          <p>Train Model</p>
+          <p>Type: [input]</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Data: /xd.csv</p>
+          <p>Train/Test: 80%</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Accuracy: 61%</p>
+          <p>ROC: [image]</p>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="flex justify-evenly">
+          <p>Predict</p>
+          <p>Select Model: [models]</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Data: /xd2.csv</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Errors: 203</p>
+          <p>Pct Error: 37%</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Select nº data: [row]</p>
+          <p>Error: [error row]</p>
+        </div>
+        <div class="flex justify-evenly">
+          <p>Histogram</p>
+          <p>[histogram]</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Cost;
+export default Error;

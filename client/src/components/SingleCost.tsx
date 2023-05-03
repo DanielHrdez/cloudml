@@ -1,31 +1,42 @@
 import { Component, Show } from "solid-js";
 import { createCostPrediction } from "../hooks/createCostPrediction";
+import { positiveIntMinValue } from "../logic/positiveIntMinValue";
 
 const SingleCost: Component<{
   initialTime: number;
   initialCapacity: number;
+  timeMinValue: number;
+  capacityMinValue: number;
 }> = (props) => {
   const {
     timeSignal: { time, setTime },
     capacitySignal: { capacity, setCapacity },
     costResource: { cost },
   } = createCostPrediction(props.initialTime, props.initialCapacity);
+  function handleTimeChange(e: any) {
+    const value = positiveIntMinValue(e.target.value, props.timeMinValue);
+    setTime(value);
+  }
+  function handleCapacityChange(e: any) {
+    const value = positiveIntMinValue(e.target.value, props.capacityMinValue);
+    setCapacity(value);
+  }
   return (
     <div>
       <form class="flex flex-col">
         <label for="time">Time (segs):</label>
         <input
           type="number"
-          onChange={(e: any) => setTime(e.target.value)}
+          onChange={handleTimeChange}
           value={time()}
-          min="0"
+          min={props.timeMinValue}
         />
         <label for="capacity">Capacity (workers):</label>
         <input
           type="number"
-          onChange={(e: any) => setCapacity(e.target.value)}
+          onChange={handleCapacityChange}
           value={capacity()}
-          min="1"
+          min={props.capacityMinValue}
         />
       </form>
       <output>

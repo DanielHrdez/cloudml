@@ -1,13 +1,9 @@
-const DOMAIN = "127.0.0.1:8000";
-const ROUTE = `http://${DOMAIN}/api`;
-const ROUTE_COST = `${ROUTE}/cost`;
-
 export async function fetchCost(props: {
   time: number;
   capacity: number;
 }): Promise<number> {
   const response = await fetch(
-    `${ROUTE_COST}/time=${props.time}&capacity=${props.capacity}`
+    `/api/cost/time=${props.time}&capacity=${props.capacity}`
   );
   return (await response.json()).cost;
 }
@@ -23,6 +19,6 @@ export async function fetchCostFromJSON(timeCapacityObject: {
     },
     body: JSON.stringify(timeCapacityObject),
   };
-  const response = await fetch(`${ROUTE_COST}/file`, content);
+  const response = await fetch(`/api/cost/file`, content);
   return (await response.json()).cost;
 }
