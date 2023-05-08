@@ -2,9 +2,9 @@ import { Component, Show } from "solid-js";
 import SingleCost from "./SingleCost";
 import FileCost from "./FileCost";
 
-const Cost: Component = (props) => {
+const Cost: Component = () => {
   return (
-    <div>
+    <div class="h-full flex flex-col justify-evenly">
       <SingleCost
         initialTime={100}
         initialCapacity={10}
