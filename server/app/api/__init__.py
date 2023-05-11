@@ -1,7 +1,8 @@
 """Initialize API Router."""
+
 from fastapi import APIRouter
 from . import cost
-from . import error
+# from . import error
 
 router = APIRouter(prefix="/api", tags=["api"])
 router.include_router(cost.router)
