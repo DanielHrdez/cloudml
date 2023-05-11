@@ -1,3 +1,6 @@
+import CSVInput from "../CSVInput";
+import NumberInput from "../NumberInput";
+
 export function TrainErrorModel() {
   // const { cost, setFile } = createCostFromFile();
   return (
@@ -5,19 +8,17 @@ export function TrainErrorModel() {
       <h2>Train Model</h2>
       <div class="flex justify-evenly">
         <form>
-          <input
-            type="file"
-            accept=".csv"
-            // onChange={(e) => setFile(e.target.files![0])}
-          />
+          <CSVInput onChange={(e) => setFile(e.target.files![0])} />
           <p>
             Train/Test Split:
-            <input
-              type="number"
+            <NumberInput
+              id="train-pct"
+              value={75}
               min="60"
               max="90"
-              value={75}
-            />%
+              onChange={(value) => setTrainSplit(value)}
+            />
+            %
           </p>
         </form>
       </div>

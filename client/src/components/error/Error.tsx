@@ -1,13 +1,14 @@
 import { Component } from "solid-js";
 import { TrainErrorModel } from "./TrainErrorModel";
 import { TestErrorModel } from "./TestErrorModel";
+import Service from "../Service";
 
 const Error: Component = () => {
   return (
-    <div class="h-full flex flex-col justify-evenly">
+    <Service title="Error Prediction">
       <TrainErrorModel />
       <TestErrorModel />
-    </div>
+    </Service>
   );
 };
 
