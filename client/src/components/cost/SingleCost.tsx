@@ -18,22 +18,24 @@ const SingleCost: Component<{
       outputTitle="AWS process will cost $:"
       output={cost()}
     >
-      <label for="time">Time (segs):</label>
-      <NumberInput
-        id="time"
-        value={time()}
-        min={0}
-        max={Number.MAX_SAFE_INTEGER}
-        onChange={(value) => setTime(value)}
-      />
-      <label for="capacity">Capacity (workers):</label>
-      <NumberInput
-        id="capacity"
-        value={capacity()}
-        min={1}
-        max={Number.MAX_SAFE_INTEGER}
-        onChange={(value) => setCapacity(value)}
-      />
+      <div>
+        <label for="time">Time (segs):</label>
+        <NumberInput
+          id="time"
+          value={time()}
+          min={0}
+          max={Number.MAX_SAFE_INTEGER}
+          onChange={(value) => setTime(value)}
+        />
+        <label for="capacity">Capacity (workers):</label>
+        <NumberInput
+          id="capacity"
+          value={capacity()}
+          min={1}
+          max={Number.MAX_SAFE_INTEGER}
+          onChange={(value) => setCapacity(value)}
+        />
+      </div>
     </Form>
   );
 };

@@ -38,8 +38,8 @@ export async function fetchCostFromJSON(timeCapacityObject: {
 export async function fetchModel(
   data: {},
   trainSplit: number = 0.8
-): Promise<object> {
-  return await fetchFromJSON(data, `/api/error/train?split=${trainSplit}`);
+): Promise<{ model: object; accuracy: number; rocCurve: string }> {
+  return await fetchFromJSON(data, `/api/error/train/split=${trainSplit}`);
 }
 
 export async function fetchFromJSON<T>(data: {}, url: string): Promise<T> {

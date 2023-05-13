@@ -1,0 +1,1 @@
+(cd client; npm run build:reload) & (cd server; DEBUG=true uvicorn app:app --reload)

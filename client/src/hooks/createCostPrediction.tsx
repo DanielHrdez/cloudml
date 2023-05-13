@@ -20,7 +20,6 @@ export function createCostPrediction(
   const [cost] = createResource(
     () => ({ time: time(), capacity: capacity() }),
     async (timeCap) => {
-      console.log("fetching cost");
       const costResponse = await fetchCost(timeCap);
       return roundDecimals(costResponse);
     }

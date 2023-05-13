@@ -4,11 +4,17 @@
 
 body {
   color: white;
+  font-family: "Wix Madefor Display", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: 0.1rem;
 }
 
 .input {
-  @apply
-    w-full
+  @apply w-full
     p-1
     text-center
     text-gray-900
@@ -18,4 +24,31 @@ body {
     focus:ring-2
     focus:ring-gray-400
     focus:ring-opacity-50;
+}
+
+.input::file-selector-button {
+  @apply bg-white
+    text-center
+    rounded-xl
+    border-0
+    drop-shadow-lg
+    focus:outline-none
+    focus:ring-2
+    focus:ring-gray-400
+    focus:ring-opacity-50
+    cursor-pointer;
+}
+
+img {
+  @apply rounded-xl
+    drop-shadow-lg;
+  @apply scale;
+}
+
+.scale {
+  @apply transition
+    duration-300
+    ease-in-out
+    transform
+    hover:scale-105;
 }

@@ -1,11 +1,17 @@
-import { Component, Show } from "solid-js";
+import { Component, JSX, Show } from "solid-js";
 
 const Form: Component<{
   title: string;
   outputTitle: string;
   output: string | number | undefined;
-  children: any;
+  children: [JSX.Element, JSX.Element] | JSX.Element;
 }> = (props) => {
+  let children: [JSX.Element, JSX.Element];
+  if (Array.isArray(props.children)) {
+    children = props.children as [JSX.Element, JSX.Element];
+  } else {
+    children = [props.children, <></>];
+  }
   return (
     <div
       class="
@@ -16,7 +22,7 @@ const Form: Component<{
         rounded-2xl
         p-4
         gap-4
-        drop-shadow-2xl
+        drop-shadow-lg
       "
     >
       <h2
@@ -28,22 +34,28 @@ const Form: Component<{
       >
         {props.title}
       </h2>
-      <form class="flex flex-col">{props.children}</form>
-      <output class="flex justify-between">
-        {props.outputTitle}
-        <Show when={props.output} fallback={<span>...</span>}>
-          <span
-            class="
-              text-2xl
-              font-bold
-              text-center
-              text-green-500
-            "
+      <form class="flex flex-col">{children[0]}</form>
+      <div>
+        <output class="flex justify-between">
+          <span class="font-bold">{props.outputTitle}</span>
+          <Show
+            when={props.output}
+            fallback={<span class="text-red-300">...</span>}
           >
-            {props.output}
-          </span>
-        </Show>
-      </output>
+            <span
+              class="
+                text-xl
+                font-bold
+                text-center
+                text-green-500
+              "
+            >
+              {props.output}
+            </span>
+          </Show>
+        </output>
+        {children[1]}
+      </div>
     </div>
   );
 };

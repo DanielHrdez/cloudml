@@ -27,7 +27,7 @@ const CSVInput: Component<{
       type="file"
       accept=".csv"
       onChange={props.onChange}
-      class="input"
+      class="input cursor-pointer"
     />
   );
 };

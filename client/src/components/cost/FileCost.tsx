@@ -11,11 +11,13 @@ const FileCost: Component = () => {
       outputTitle="The total cost of the file will be $:"
       output={cost()}
     >
-      <label for="file-cost">File:</label>
-      <CSVInput
-        id="file-cost"
-        onChange={(e) => setFile(() => e.target.files![0])}
-      />
+      <div>
+        <label for="file-cost">File:</label>
+        <CSVInput
+          id="file-cost"
+          onChange={(e) => setFile(() => e.target.files![0])}
+        />
+      </div>
     </Form>
   );
 };

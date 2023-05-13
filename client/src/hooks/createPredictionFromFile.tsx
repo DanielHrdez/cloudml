@@ -1,5 +1,6 @@
 import { createEffect, createSignal } from "solid-js";
 import { fetchCostFromJSON, fetchModel } from "../logic/fetchAPI";
+import { saveModel } from "../logic/modelStorage";
 import { parseCSVCost } from "../logic/parseCSVCost";
 import { roundDecimals } from "../logic/roundDecimals";
 
@@ -58,10 +59,13 @@ export function createModelFromFile(initialTrainSplit = 75) {
     (data) => fetchModel(data, trainSplit())
   );
   createEffect(() => {
-    console.log(trainSplit());
+    if (prediction()) {
+      const model = prediction()!.model;
+      saveModel(model);
+    }
   });
   return {
-    model: prediction,
+    ...prediction(),
     setFile,
     trainSplit,
     setTrainSplit,
