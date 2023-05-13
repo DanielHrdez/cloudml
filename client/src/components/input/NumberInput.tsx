@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import { intMinMax } from "../logic/intMinMax";
+import { intMinMax } from "../../logic/intMinMax";
 
 /**
  * This is a TypeScript React component for a number input with minimum and maximum values and an
@@ -17,8 +17,9 @@ const NumberInput: Component<{
   max: number | string;
   onChange: (e: any) => any;
 }> = (props) => {
-  function handleChange(e: any) {
-    const value = intMinMax(e.target.value, +props.min, +props.max);
+  function handleChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    const value = intMinMax(+target.value, +props.min, +props.max);
     props.onChange(value);
   }
   return (
@@ -29,6 +30,7 @@ const NumberInput: Component<{
       value={props.value}
       min={props.min}
       max={props.max}
+      class="input"
     />
   );
 };

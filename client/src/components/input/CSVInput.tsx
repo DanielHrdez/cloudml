@@ -19,8 +19,17 @@ const CSVInput: Component<{
       target: HTMLInputElement;
     }
   ) => any;
+  id?: string;
 }> = (props) => {
-  return <input type="file" accept=".csv" onChange={props.onChange} />;
+  return (
+    <input
+      id={props.id}
+      type="file"
+      accept=".csv"
+      onChange={props.onChange}
+      class="input"
+    />
+  );
 };
 
 export default CSVInput;

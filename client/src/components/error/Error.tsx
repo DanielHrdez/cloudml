@@ -1,13 +1,13 @@
 import { Component } from "solid-js";
-import { TrainErrorModel } from "./TrainErrorModel";
-import { TestErrorModel } from "./TestErrorModel";
+import { TrainModel } from "./TrainModel";
+import { TestModel } from "./TestModel";
 import Service from "../Service";
 
 const Error: Component = () => {
   return (
     <Service title="Error Prediction">
-      <TrainErrorModel />
-      <TestErrorModel />
+      <TrainModel />
+      <TestModel />
     </Service>
   );
 };

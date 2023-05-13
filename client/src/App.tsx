@@ -5,10 +5,20 @@ import "./App.module.css";
 
 const App: Component = () => {
   return (
-    <div class="flex flex-col sm:flex-row h-screen">
+    <main
+      class="
+        flex
+        flex-col
+        sm:flex-row
+        h-screen
+        p-2
+        gap-2
+        bg-gray-800
+      "
+    >
       <Cost />
       <Error />
-    </div>
+    </main>
   );
 };
 

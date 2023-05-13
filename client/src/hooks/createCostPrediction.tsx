@@ -1,5 +1,6 @@
 import { createResource, createSignal } from "solid-js";
 import { fetchCost } from "../logic/fetchAPI";
+import { roundDecimals } from "../logic/roundDecimals";
 
 /**
  * The function creates a cost prediction tool that takes in initial time and capacity values and
@@ -18,7 +19,11 @@ export function createCostPrediction(
   const [capacity, setCapacity] = createSignal(initialCapacity);
   const [cost] = createResource(
     () => ({ time: time(), capacity: capacity() }),
-    fetchCost
+    async (timeCap) => {
+      console.log("fetching cost");
+      const costResponse = await fetchCost(timeCap);
+      return roundDecimals(costResponse);
+    }
   );
   return {
     timeSignal: { time, setTime },

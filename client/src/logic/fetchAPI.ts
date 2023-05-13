@@ -28,13 +28,28 @@ export async function fetchCostFromJSON(timeCapacityObject: {
   time: number[];
   capacity: number[];
 }): Promise<number> {
+  const response = await fetchFromJSON<{ cost: number }>(
+    timeCapacityObject,
+    `/api/cost/file`
+  );
+  return response.cost;
+}
+
+export async function fetchModel(
+  data: {},
+  trainSplit: number = 0.8
+): Promise<object> {
+  return await fetchFromJSON(data, `/api/error/train?split=${trainSplit}`);
+}
+
+export async function fetchFromJSON<T>(data: {}, url: string): Promise<T> {
   const content = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(timeCapacityObject),
+    body: JSON.stringify(data),
   };
-  const response = await fetch(`/api/cost/file`, content);
-  return (await response.json()).cost;
+  const response = await fetch(url, content);
+  return await response.json();
 }

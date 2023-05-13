@@ -6,8 +6,8 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
+    "build:reload": "vite build --watch --emptyOutDir",
     "serve": "vite preview",
-    "hot-build": "vite build --watch --emptyOutDir",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

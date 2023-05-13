@@ -1,10 +1,11 @@
 import { createEffect, createSignal } from "solid-js";
-import { fetchCostFromJSON } from "../logic/fetchAPI";
+import { fetchCostFromJSON, fetchModel } from "../logic/fetchAPI";
 import { parseCSVCost } from "../logic/parseCSVCost";
+import { roundDecimals } from "../logic/roundDecimals";
 
 /**
  * This function creates a prediction from a CSV file using a CSV parser and a fetcher.
- * @param csvParser - A function that takes a CSV string as input and returns a parsed object of type
+ * @param parser - A function that takes a CSV string as input and returns a parsed object of type
  * T.
  * @param fetcher - The `fetcher` parameter is a function that takes in an object of type `T` (which is
  * the result of parsing a CSV file) and returns a Promise that resolves to an object of type `U`
@@ -12,15 +13,18 @@ import { parseCSVCost } from "../logic/parseCSVCost";
  * @returns An object with two properties: `prediction` and `setFile`.
  */
 export function createPredictionFromFile<T, U>(
-  csvParser: (csv: string) => T,
-  fetcher: (csvObject: T) => Promise<U>
+  parser: (file: string) => T,
+  fetcher: (csvObject: T) => Promise<U>,
+  preprocessResponse: (response: U) => U = (response) => response
 ) {
   const [prediction, setPrediction] = createSignal<U>();
   const [file, setFile] = createSignal<File>();
   const reader = new FileReader();
   reader.onload = (e) => {
-    const csvObject = csvParser(e.target!.result!.toString());
-    fetcher(csvObject).then((response) => setPrediction(() => response));
+    const parsed = parser(e.target!.result!.toString());
+    fetcher(parsed).then((response) =>
+      setPrediction(() => preprocessResponse(response))
+    );
   };
   createEffect(() => {
     if (file()) reader.readAsText(file()!);
@@ -38,15 +42,28 @@ export function createPredictionFromFile<T, U>(
 export function createCostFromFile() {
   const { prediction, setFile } = createPredictionFromFile(
     parseCSVCost,
-    fetchCostFromJSON
+    fetchCostFromJSON,
+    roundDecimals
   );
-  return { cost: prediction, setFile };
+  return {
+    cost: prediction,
+    setFile,
+  };
 }
 
-export function createModelFromFile() {
+export function createModelFromFile(initialTrainSplit = 75) {
+  const [trainSplit, setTrainSplit] = createSignal(initialTrainSplit);
   const { prediction, setFile } = createPredictionFromFile(
-    JSON.parse,
-    fetchCostFromJSON
+    parseCSVCost,
+    (data) => fetchModel(data, trainSplit())
   );
-  return { model: prediction, setFile };
+  createEffect(() => {
+    console.log(trainSplit());
+  });
+  return {
+    model: prediction,
+    setFile,
+    trainSplit,
+    setTrainSplit,
+  };
 }

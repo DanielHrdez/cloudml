@@ -1,17 +1,22 @@
 import { Component, Show } from "solid-js";
-import { createCostFromFile } from "../../hooks/createCostFromFile";
-import CSVInput from "../CSVInput";
+import { createCostFromFile } from "../../hooks/createPredictionFromFile";
+import CSVInput from "../input/CSVInput";
+import Form from "../Form";
 
 const FileCost: Component = () => {
   const { cost, setFile } = createCostFromFile();
   return (
-    <div>
-      <CSVInput onChange={(e) => setFile(e.target.files![0])} />
-      The total cost of the file will be:
-      <Show when={cost()} fallback={<span>...</span>}>
-        <span>{Math.round(cost()! * 100) / 100}$</span>
-      </Show>
-    </div>
+    <Form
+      title="File Cost"
+      outputTitle="The total cost of the file will be $:"
+      output={cost()}
+    >
+      <label for="file-cost">File:</label>
+      <CSVInput
+        id="file-cost"
+        onChange={(e) => setFile(() => e.target.files![0])}
+      />
+    </Form>
   );
 };
 

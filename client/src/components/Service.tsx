@@ -21,13 +21,26 @@ const Service: Component<{
         flex-col
         items-center
         bg-gradient-to-br
-        from-teal-500
+        from-gray-600
         to-indigo-950
+        rounded-2xl
       "
     >
-      <h1 class="text-xl font-bold text-gray-100">{props.title}</h1>
-      <div class="w-full h-1 bg-gray-900 mb-4"></div>
-      <div class="h-full flex flex-col justify-evenly">{props.children}</div>
+      <h1 class="text-2xl font-bold">{props.title}</h1>
+      <div class="w-full h-px bg-gray-900"></div>
+      <div
+        class="
+          h-full
+          flex
+          flex-row
+          sm:flex-col
+          justify-evenly
+          gap-4
+          p-4
+        "
+      >
+        {props.children}
+      </div>
     </div>
   );
 };
