@@ -8,7 +8,7 @@ const FileCost: Component = () => {
   return (
     <Form
       title="File Cost"
-      outputTitle="The total cost of the file will be $:"
+      outputTitle="Total cost $:"
       output={cost()}
     >
       <div>

@@ -1,6 +1,12 @@
-import { Component } from "solid-js";
+import { Component, createSignal } from "solid-js";
+import { Modal } from "./Modal";
 
 export const Image: Component<{ src: string | undefined }> = (props) => {
+  const handleClick = () => {
+    if (!props.src) return;
+    setShowModal(true);
+  };
+  const [showModal, setShowModal] = createSignal(false);
   return (
     <img
       src={props.src}
@@ -12,6 +18,11 @@ export const Image: Component<{ src: string | undefined }> = (props) => {
         border-2
         border-gray-200
       "
-    />
+      onClick={handleClick}
+    >
+      {showModal() && (
+        <Modal src={props.src!} onClose={() => setShowModal(false)} />
+      )}
+    </img>
   );
 };

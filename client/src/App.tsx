@@ -7,13 +7,12 @@ const App: Component = () => {
   return (
     <main
       class="
+        min-h-screen
         flex
         flex-col
         sm:flex-row
-        h-screen
         p-2
         gap-2
-        bg-gray-800
       "
     >
       <Cost />

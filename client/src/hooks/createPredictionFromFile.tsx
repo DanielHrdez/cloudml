@@ -1,7 +1,11 @@
 import { createEffect, createSignal } from "solid-js";
-import { fetchCostFromJSON, fetchModel } from "../logic/fetchAPI";
+import {
+  fetchCostFromJSON,
+  fetchModel,
+  fetchModelPrediction,
+} from "../logic/fetchAPI";
 import { saveModel } from "../logic/modelStorage";
-import { parseCSVCost } from "../logic/parseCSVCost";
+import { parseCSVCost, parseCSVError } from "../logic/parseCSV";
 import { roundDecimals } from "../logic/roundDecimals";
 
 /**
@@ -54,20 +58,63 @@ export function createCostFromFile() {
 
 export function createModelFromFile(initialTrainSplit = 75) {
   const [trainSplit, setTrainSplit] = createSignal(initialTrainSplit);
+  const [model, setModel] = createSignal<object>();
+  const [accuracy, setAccuracy] = createSignal<number>();
+  const [rocCurve, setRocCurve] = createSignal<string>();
   const { prediction, setFile } = createPredictionFromFile(
-    parseCSVCost,
-    (data) => fetchModel(data, trainSplit())
+    parseCSVError,
+    (data) => fetchModel(data, trainSplit() / 100)
   );
   createEffect(() => {
     if (prediction()) {
       const model = prediction()!.model;
       saveModel(model);
+      setModel(() => model);
+      setAccuracy(() => Math.round(prediction()!.accuracy * 100) / 100);
+      setRocCurve(() => prediction()!.roc);
     }
   });
   return {
-    ...prediction(),
+    model,
+    accuracy,
+    rocCurve,
     setFile,
     trainSplit,
     setTrainSplit,
+  };
+}
+
+export function createModelPredictionFromFile() {
+  const [model, setModel] = createSignal<string>();
+  const [predictions, setPredictions] = createSignal<number[]>();
+  const [histogram, setHistogram] = createSignal<string>();
+  const [nErrors, setNErrors] = createSignal<number>();
+  const [pctError, setPctError] = createSignal<number>();
+  const { prediction, setFile } = createPredictionFromFile(
+    parseCSVError,
+    (data) => fetchModelPrediction(data, model()!)
+  );
+  createEffect(() => {
+    if (prediction()) {
+      setPredictions(() => prediction()!.predictions);
+      setHistogram(() => prediction()!.histogram);
+      const errors = prediction()!.predictions.filter((p) => p > 0.5);
+      setNErrors(() => {
+        return errors.length;
+      });
+      setPctError(() => {
+        return Math.round(
+          (errors.length / prediction()!.predictions.length) * 100
+        );
+      });
+    }
+  });
+  return {
+    predictions,
+    histogram,
+    nErrors,
+    pctError,
+    setFile,
+    setModel,
   };
 }

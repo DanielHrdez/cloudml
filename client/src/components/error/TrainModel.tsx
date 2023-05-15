@@ -8,7 +8,7 @@ export function TrainModel() {
   const { accuracy, rocCurve, setFile, trainSplit, setTrainSplit } =
     createModelFromFile();
   return (
-    <Form title="Train Model" outputTitle="Accuracy %: " output={accuracy}>
+    <Form title="Train Model" outputTitle="Accuracy %: " output={accuracy()}>
       <div>
         <label>Data</label>
         <CSVInput onChange={(e) => setFile(() => e.target.files![0])} />
@@ -23,7 +23,7 @@ export function TrainModel() {
       </div>
       <div class="flex flex-col items-center">
         Roc Curve
-        <Image src={rocCurve} />
+        <Image src={rocCurve()} />
       </div>
     </Form>
   );

@@ -16,7 +16,6 @@ const Service: Component<{
     <div
       class="
         w-full
-        h-full
         flex
         flex-col
         items-center
@@ -24,6 +23,7 @@ const Service: Component<{
         from-gray-600
         to-indigo-950
         rounded-2xl
+        drop-shadow-xl
       "
     >
       <h1 class="text-2xl font-bold">{props.title}</h1>
@@ -32,8 +32,7 @@ const Service: Component<{
         class="
           h-full
           flex
-          flex-row
-          sm:flex-col
+          flex-col
           justify-evenly
           gap-4
           p-4

@@ -15,7 +15,7 @@ const SingleCost: Component<{
   return (
     <Form
       title="Single Cost"
-      outputTitle="AWS process will cost $:"
+      outputTitle="Cost $:"
       output={cost()}
     >
       <div>

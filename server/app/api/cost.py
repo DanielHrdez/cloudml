@@ -4,36 +4,11 @@ import joblib
 import pandas as pd
 import numpy as np
 from fastapi import APIRouter
-from pydantic import BaseModel  # pylint: disable=no-name-in-module
+
+from app.api.file import CostCSVFile
 
 router = APIRouter(prefix="/cost")
 model = joblib.load("models/cost/linear.joblib")
-
-
-class CostCSVFile(BaseModel):
-    """
-    The `CostCSVFile` class is a `BaseModel` with two attributes `time` and `capacity`,
-    both of which are lists of integers.
-    """
-
-    time: list[int]
-    capacity: list[int]
-
-    def get_time(self):
-        """
-        This function returns the value of the "time" attribute of an object.
-        :return: The method `get_time` is returning the value of
-        the attribute `time` of the object that called the method.
-        """
-        return self.time
-
-    def get_capacity(self):
-        """
-        This function returns the capacity of an object.
-        :return: The method `get_capacity` is returning the value of the `capacity` attribute of
-        the object.
-        """
-        return self.capacity
 
 
 def transform_data(df_time_cap: pd.DataFrame):
@@ -56,8 +31,8 @@ def transform_data(df_time_cap: pd.DataFrame):
     return df_time_cap
 
 
-@router.get("/time={time}&capacity={capacity}")
-def predict_cost(time: int, capacity: int):
+@router.get("")
+def get_predict_cost(time: int, capacity: int):
     """
     This function takes in time and capacity as inputs, transforms the data, and returns a predicted
     cost using a machine learning model.
@@ -79,7 +54,7 @@ def predict_cost(time: int, capacity: int):
 
 
 @router.post("/file")
-def predict_cost_by_file(file: CostCSVFile):
+def post_predict_cost_by_file(file: CostCSVFile):
     """
     This function takes in a CSV file of cost data, transforms it, predicts the cost using a
     pre-trained model, and returns the total cost.
@@ -92,7 +67,7 @@ def predict_cost_by_file(file: CostCSVFile):
     :return: a dictionary with a single key-value pair where the key is "cost" and the value is
     the sum of the predictions made by the model on the input data.
     """
-    df_time_cap = pd.DataFrame(file.dict())
+    df_time_cap = file.get_df()
     df_time_cap = transform_data(df_time_cap)
     result = model.predict(df_time_cap.values)
     return {"cost": sum(result)}

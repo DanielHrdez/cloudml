@@ -1,4 +1,7 @@
 export function saveModel(model: object, defaultName = "model") {
+  if (!model) {
+    return;
+  }
   let name = `${defaultName}_0`;
   for (let i = 0; localStorage.getItem(name); i++) {
     name = `${defaultName}_${i}`;
