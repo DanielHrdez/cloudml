@@ -1,0 +1,9 @@
+[submodule "tfg-frontend"]
+	path = tfg-frontend
+	url = git@github.com:DanielHrdez/tfg-frontend.git
+[submodule "cloudml-frontend"]
+	path = cloudml-frontend
+	url = git@github.com:DanielHrdez/cloudml-frontend.git
+[submodule "cloudml-backend"]
+	path = cloudml-backend
+	url = git@github.com:DanielHrdez/cloudml-backend.git
