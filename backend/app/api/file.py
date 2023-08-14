@@ -80,12 +80,12 @@ class ErrorCSVFile(BaseModel):
 
 class ErrorCSVFileTrain(ErrorCSVFile):
     data: list[ErrorCSVFieldsTrain]
-    train = True
+    train: bool = True
 
 
 class ErrorCSVFileTest(ErrorCSVFile):
     data: list[ErrorCSVFieldsTest]
-    train = False
+    train: bool = False
 
 
 class ErrorCSVModel(ErrorCSVFileTest):
