@@ -1,0 +1,6 @@
+fastapi
+pandas
+scikit-learn
+imbalanced-learn
+uvicorn[standard]
+matplotlib
