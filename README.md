@@ -12,7 +12,7 @@ Machine learning for Cloud Server Predictions. It can almost accurately predict 
 ```
 
 First upload the training data and train a model.
-Later, you can test the the model with new data.
+Later, you can test the model with new data.
 
 [Paper]()
 [Demo](https://cloudml.danielhrdez.dev/)
